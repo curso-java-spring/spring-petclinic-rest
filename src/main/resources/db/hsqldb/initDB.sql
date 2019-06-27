@@ -7,6 +7,7 @@ DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
 DROP TABLE roles IF EXISTS;
 DROP TABLE users IF EXISTS;
+DROP TABLE products IF EXISTS;
 
 
 CREATE TABLE vets (
@@ -80,3 +81,9 @@ CREATE TABLE roles (
 ALTER TABLE roles ADD CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username);
 CREATE INDEX fk_username_idx ON roles (username);
 
+CREATE TABLE products (
+  id   INTEGER IDENTITY PRIMARY KEY,
+  name VARCHAR(80),
+  description CLOB(5K)  
+);
+CREATE INDEX products_name ON products (name);

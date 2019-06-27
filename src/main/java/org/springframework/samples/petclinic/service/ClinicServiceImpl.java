@@ -15,7 +15,6 @@
  */
 package org.springframework.samples.petclinic.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +32,7 @@ import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.OwnerRepository;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.PetTypeRepository;
+import org.springframework.samples.petclinic.repository.ProductRepository;
 import org.springframework.samples.petclinic.repository.SpecialtyRepository;
 import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
@@ -56,6 +56,7 @@ public class ClinicServiceImpl implements ClinicService {
     private VisitRepository visitRepository;
     private SpecialtyRepository specialtyRepository;
 	private PetTypeRepository petTypeRepository;
+	private ProductRepository productRepository;
 
     @Autowired
      public ClinicServiceImpl(
@@ -64,13 +65,15 @@ public class ClinicServiceImpl implements ClinicService {
     		 OwnerRepository ownerRepository,
     		 VisitRepository visitRepository,
     		 SpecialtyRepository specialtyRepository,
-			 PetTypeRepository petTypeRepository) {
+			 PetTypeRepository petTypeRepository,
+			 ProductRepository productRepository) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
         this.specialtyRepository = specialtyRepository; 
 		this.petTypeRepository = petTypeRepository;
+		this.productRepository = productRepository;		
     }
 
 	@Override
@@ -272,7 +275,6 @@ public class ClinicServiceImpl implements ClinicService {
 	@Transactional
 	public void saveOwner(Owner owner) throws DataAccessException {
 		ownerRepository.save(owner);
-		
 	}
 
 	@Override
@@ -288,16 +290,9 @@ public class ClinicServiceImpl implements ClinicService {
 	}
 
 	@Override
-	public Collection<Product> findAllProducts() {
-		// TODO completar este método!!!!
-		// TODO adicionar repositório Product no ClinicService
-
-		Collection<Product> ps = new ArrayList<Product>();
-		ps.add(new Product());
-		return ps;
+	@Transactional(readOnly = true)	
+	public Collection<Product> findAllProducts() {	
+		return productRepository.findAll();
 	}
-	
-	
-
 
 }

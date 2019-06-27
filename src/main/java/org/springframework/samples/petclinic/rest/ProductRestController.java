@@ -24,6 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.model.Product;
 import org.springframework.samples.petclinic.service.ClinicService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,9 +39,7 @@ public class ProductRestController {
 	@Autowired
 	private ClinicService clinicService;
 
-    // TODO decidir pela autorização necessária
-	// PRODUCT_ADMIN?
-	// PreAuthorize( "hasRole(@roles.OWNER_ADMIN)" )
+	@PreAuthorize( "hasRole(@roles.PRODUCT_ADMIN)" )
 	@RequestMapping(value = "", method = RequestMethod.GET, 
 	produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Collection<Product>> getProducts() {
