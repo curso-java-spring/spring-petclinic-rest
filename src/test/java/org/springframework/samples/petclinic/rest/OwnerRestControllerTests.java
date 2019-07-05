@@ -57,6 +57,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes=ApplicationTestConfig.class)
 @WebAppConfiguration
+@WithMockUser(roles = "OWNER_ADMIN")
 public class OwnerRestControllerTests {
 
     @Autowired
